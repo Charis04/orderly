@@ -34,6 +34,33 @@ class TaskForm(QWidget):
 
         self.setLayout(layout)
 
+        # Set styles for the components
+        self.setStyleSheet("""
+            QLineEdit, QComboBox, QDateEdit {
+                padding: 6px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                font-size: 14px;
+            }
+
+            QPushButton {
+                background-color: #007ACC;
+                color: white;
+                padding: 6px 12px;
+                border: none;
+                border-radius: 6px;
+                font-weight: bold;
+            }
+
+            QPushButton:hover {
+                background-color: #005F99;
+            }
+
+            QPushButton:pressed {
+                background-color: #004C7A;
+            }
+        """)
+
     def emit_task_data(self):
         title = self.title_input.text().strip()
         if title:

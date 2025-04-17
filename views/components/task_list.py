@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QListWidget, QListWidgetItem
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, Qt
 
 class TaskList(QListWidget):
-    task_toggled = Signal(int)  # task_id
+    task_toggled = Signal(int, bool)  # task_id
 
     def __init__(self):
         super().__init__()
@@ -20,6 +20,7 @@ class TaskList(QListWidget):
             }
             QListWidget::item:selected {
                 background-color: #B0E0E6;
+                border-radius: 6px;
             }
         """)
         self.itemClicked.connect(self.toggle_task)
@@ -27,11 +28,14 @@ class TaskList(QListWidget):
     def populate(self, tasks):
         self.clear()
         for task in tasks:
-            status = "[✔]" if task.completed else "[ ]"
-            item = QListWidgetItem(f"{status} {task.title} ({task.category}) - Due {task.due_date}")
-            item.setData(0, task.id)
+            item = QListWidgetItem(f"{task.title} ({task.category}) - Due {task.due_date}")
+            item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+            item.setCheckState(Qt.Checked if task.completed else Qt.Unchecked)
+            item.setData(1, task.id)
             self.addItem(item)
 
     def toggle_task(self, item):
-        task_id = item.data(0)
-        self.task_toggled.emit(task_id)
+        task_id = item.data(1)
+        completed = item.checkState() == Qt.Checked
+        print("Task toggled:", task_id, "Completed:", completed)  # Debugging line
+        self.task_toggled.emit(task_id, not completed)

@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import (
     QWidget, QHBoxLayout, QLineEdit, QComboBox,
-    QDateEdit, QPushButton
+    QDateEdit, QPushButton, QDialog
 )
 from PySide6.QtCore import QDate, Signal
 

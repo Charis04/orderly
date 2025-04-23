@@ -14,10 +14,9 @@ class Task(BaseModel):
     created_at = DateTimeField(constraints=[SQL('DEFAULT CURRENT_TIMESTAMP')])
     completed = BooleanField(default=False)
     category = CharField(choices=[
-        ('general', 'General'),
-        ('daily', 'Daily'),
-        ('weekly', 'Weekly'),
-        ('monthly', 'Monthly')
+        ('today', 'Today'),
+        ('week', 'This Week'),
+        ('month', 'This Month'),
     ])
     is_recurring = BooleanField(default=False)
 

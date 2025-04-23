@@ -4,6 +4,7 @@ from PySide6.QtCore import Signal
 
 class Sidebar(QWidget):
     view_changed = Signal(str)  # Emits "today", "week", "month", or "all"
+    add_task_clicked = Signal()  # Emits when "Add Task" is clicked
 
     def __init__(self):
         super().__init__()
@@ -47,6 +48,12 @@ class Sidebar(QWidget):
             btn.clicked.connect(lambda _, n=name: self.change_view(n))
             layout.addWidget(btn)
             self.buttons[name] = btn
+
+        self.add_task_btn = QPushButton("Add Task")
+        self.add_task_btn.setCheckable(False)
+        self.add_task_btn.setObjectName("addTaskButton")
+        self.add_task_btn.clicked.connect(self.add_task_clicked.emit)
+        layout.addWidget(self.add_task_btn)
 
         self.setLayout(layout)
         self.change_view("today")  # default selection

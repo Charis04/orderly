@@ -5,6 +5,7 @@ from PySide6.QtCore import Signal
 class Sidebar(QWidget):
     view_changed = Signal(str)  # Emits "today", "week", "month", or "all"
     add_task_clicked = Signal()  # Emits when "Add Task" is clicked
+    focus_timer_clicked = Signal()  # Emits when "Focus Session" is clicked
 
     def __init__(self):
         super().__init__()
@@ -41,6 +42,7 @@ class Sidebar(QWidget):
             "today": "Today's Tasks",
             "week": "This Week",
             "month": "This Month",
+            "recurring": "Recurring Tasks",
             "all": "All Tasks"
         }.items():
             btn = QPushButton(label)
@@ -54,6 +56,10 @@ class Sidebar(QWidget):
         self.add_task_btn.setObjectName("addTaskButton")
         self.add_task_btn.clicked.connect(self.add_task_clicked.emit)
         layout.addWidget(self.add_task_btn)
+
+        self.focus_btn = QPushButton("Focus Session")
+        self.focus_btn.clicked.connect(self.focus_timer_clicked.emit)
+        layout.addWidget(self.focus_btn)
 
         self.setLayout(layout)
         self.change_view("today")  # default selection

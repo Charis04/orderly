@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QLineEdit, QLabel, QPushButton,
-    QHBoxLayout, QCheckBox, QComboBox, QDateEdit
+    QHBoxLayout, QCheckBox, QComboBox, QDateEdit, QTextEdit
 )
 from PySide6.QtCore import QDate, Signal
 from datetime import date
@@ -28,6 +28,7 @@ class TaskForm(QWidget):
         layout.addLayout(top_bar)
 
         self.title_input = QLineEdit()
+        self.description = QTextEdit()
         self.due_date_input = QDateEdit()
         self.due_date_input.setDate(QDate.currentDate())
 
@@ -39,6 +40,7 @@ class TaskForm(QWidget):
 
         self.start_date_input = QDateEdit()
         self.start_date_input.setDate(QDate.currentDate())
+        self.start_date_input.setCalendarPopup(True)
         self.start_date_input.setEnabled(False)
 
         self.end_date_input = QDateEdit()
@@ -50,6 +52,9 @@ class TaskForm(QWidget):
 
         layout.addWidget(QLabel("Title"))
         layout.addWidget(self.title_input)
+
+        layout.addWidget(QLabel("Description"))
+        layout.addWidget(self.description)
 
         layout.addWidget(QLabel("Due Date"))
         layout.addWidget(self.due_date_input)
@@ -77,6 +82,7 @@ class TaskForm(QWidget):
     def get_form_data(self):
         data = {
             "title": self.title_input.text(),
+            "description": self.description.toPlainText(),
             "category": categorize_task(self.due_date_input.date().toPython()),
             "due_date": self.due_date_input.date().toPython(),
             "recurring": self.recurring_checkbox.isChecked()

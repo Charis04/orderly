@@ -29,7 +29,7 @@ class TaskList(QListWidget):
     def populate(self, tasks):
         self.clear()
         for task in tasks:
-            item = QListWidgetItem(f"{task.title} ({task.category}) - Due {task.due_date}")
+            item = QListWidgetItem(f"{task.title} - Due {task.due_date}")
             item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
             item.setCheckState(Qt.Checked if task.completed else Qt.Unchecked)
             item.setData(1, task.id)

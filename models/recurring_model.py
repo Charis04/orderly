@@ -6,7 +6,12 @@ import datetime
 class RecurringTask(Model):
     title = CharField()
     category = CharField()
-    recurrence_type = CharField()  # "daily", "weekly", "monthly"
+    description = TextField(null=True)
+    recurrence_type = CharField(choices=[
+        ('today', 'Today'),
+        ('week', 'This Week'),
+        ('month', 'This Month'),
+    ])  # "daily", "weekly", "monthly"
     start_date = DateField()
     end_date = DateField(null=True)
     last_generated = DateField(null=True)

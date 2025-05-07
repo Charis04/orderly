@@ -25,6 +25,8 @@ class TaskController:
             self.get_tasks_by_category("week")
         elif view == "month":
             self.get_tasks_by_category("month")
+        elif view == "recurring":
+            return list(Task.select().where(Task.is_recurring == True))
 
         return self.get_all_tasks()
 

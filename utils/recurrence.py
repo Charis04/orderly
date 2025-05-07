@@ -25,6 +25,8 @@ def generate_recurring_tasks():
                     title=rec.title,
                     category=rec.category,
                     due_date=next_date,
+                    description=rec.description,
+                    is_recurring=True,
                     completed=False
                 )
 

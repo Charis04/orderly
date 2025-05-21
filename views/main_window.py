@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
 
         layout.addWidget(self.side_bar, 1)
 
-        content = QWidget()
+        self.content = QWidget()
         content_layout = QVBoxLayout()
         content_layout.setContentsMargins(10, 10, 10, 10)
         content_layout.setSpacing(15)
@@ -51,10 +51,11 @@ class MainWindow(QMainWindow):
         content_layout.addWidget(QLabel("Your Tasks:"))
         content_layout.addWidget(self.task_list)
 
-        content.setLayout(content_layout)
-        layout.addWidget(content, 4)
+        self.content.setLayout(content_layout)
+        layout.addWidget(self.content, 4)
         layout.addWidget(self.task_form, 1)
         layout.addWidget(self.task_detail_view, 2)
+        layout.addWidget(self.focus_timer, 4)
 
 
         main_widget.setLayout(layout)
@@ -102,10 +103,11 @@ class MainWindow(QMainWindow):
     def show_task_form(self):
         self.task_form.show()
         self.task_detail_view.hide()
+        self.focus_timer.hide()
 
     def show_focus_timer(self):
-        print("Focus Timer clicked")
         self.task_form.hide()
         self.task_detail_view.hide()
         self.focus_timer.load_tasks()
+        self.content.hide()
         self.focus_timer.show()
